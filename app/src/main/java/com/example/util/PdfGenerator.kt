@@ -41,7 +41,7 @@ object PdfGenerator {
     }
 
     private fun drawReportPage(pdfDocument: PdfDocument, report: Report) {
-        val pageInfo = PdfDocument.PageInfo.Builder(595, 842, pdfDocument.pages.size + 1).create()
+        val pageInfo = PdfDocument.PageInfo.Builder(595, 875, pdfDocument.pages.size + 1).create()
         val page = pdfDocument.startPage(pageInfo)
         val canvas = page.canvas
         
@@ -226,7 +226,7 @@ object PdfGenerator {
         canvas.drawText(if (isOverallPass) "PASSED" else "FAILED", pageWidth - startX - 15f, currentY + 23f, vStatusPaint)
 
         // Signatures
-        currentY += 75f
+        currentY += 90f
         canvas.drawLine(startX, currentY, startX + 180f, currentY, borderPaint)
         canvas.drawText("Inspector Signature", startX, currentY + 15f, labelPaint)
         

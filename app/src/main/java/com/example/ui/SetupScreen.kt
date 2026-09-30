@@ -67,7 +67,7 @@ fun SetupScreen(viewModel: MetroCertViewModel, onNext: () -> Unit) {
         if (report.standardWeightId.isNotEmpty()) standardId = report.standardWeightId
     }
 
-    fun applyDemoData(pass: Boolean) {
+    fun applyDemoData() {
         manufacturer = "Mettler Toledo"
         model = "ICS689 Precision"
         serial = "MT-2026-XPR984"
@@ -81,7 +81,8 @@ fun SetupScreen(viewModel: MetroCertViewModel, onNext: () -> Unit) {
         pressure = "1013.25"
         standardId = "OIML-E2-STD-2026"
         nValidationError = null
-        viewModel.autoPopulateFullDemo(pass = pass)
+        viewModel.autoPopulateDemoSetup()
+        viewModel.autoPopulateDemoTests()
     }
 
     val textFieldColors = TextFieldDefaults.colors(
@@ -208,25 +209,13 @@ fun SetupScreen(viewModel: MetroCertViewModel, onNext: () -> Unit) {
         
         Spacer(modifier = Modifier.height(16.dp))
         
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Button(
-                onClick = { applyDemoData(true) },
-                colors = ButtonDefaults.buttonColors(containerColor = NeoAccent),
-                shape = RoundedCornerShape(12.dp),
-                modifier = Modifier.weight(1f)
-            ) {
-                Icon(Icons.Default.AutoAwesome, contentDescription = null, tint = androidx.compose.ui.graphics.Color.White, modifier = Modifier.size(16.dp))
-                Spacer(modifier = Modifier.width(4.dp))
-                Text("Pass", color = androidx.compose.ui.graphics.Color.White, fontWeight = FontWeight.Bold, style = MaterialTheme.typography.labelMedium)
-            }
-            Button(
-                onClick = { applyDemoData(false) },
-                colors = ButtonDefaults.buttonColors(containerColor = FailText),
-                shape = RoundedCornerShape(12.dp),
-                modifier = Modifier.weight(1f)
-            ) {
-                Text("Fail", color = androidx.compose.ui.graphics.Color.White, fontWeight = FontWeight.Bold, style = MaterialTheme.typography.labelMedium)
-            }
+        TextButton(
+            onClick = { applyDemoData() },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Icon(Icons.Default.AutoAwesome, contentDescription = null, tint = NeoAccent, modifier = Modifier.size(18.dp))
+            Spacer(modifier = Modifier.width(8.dp))
+            Text("Auto-fill Demo Data", color = NeoAccent, fontWeight = FontWeight.SemiBold)
         }
         
         Spacer(modifier = Modifier.height(32.dp))
